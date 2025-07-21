@@ -1,4 +1,5 @@
 import React from "react";
+import './Displayinfor.scss';
 class DisplayInfor extends React.Component {
     state = {
         isShowListUsers : true
@@ -15,7 +16,7 @@ class DisplayInfor extends React.Component {
         console.log('listUsers: ', listUsers);
 
         return (
-            <div>
+            <div className='display-infor-container'>
                 <div>
                     <span onClick = {() => this.handleShowHide()}>
                         {this.state.isShowListUsers === true ? 'Hide list users': "Show list users"}
