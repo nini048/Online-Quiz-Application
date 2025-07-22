@@ -1,30 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import './Displayinfor.scss';
 import logo from '../logo.svg';
-class DisplayInfor extends React.Component {
-    state = {
-        isShowListUsers : true
-    }
-    handleShowHide = () => {
-        
-        this.setState({
-            isShowListUsers: !this.state.isShowListUsers
-        })
-    }
-    render(){
-        console.log(this.props);
-        const {listUsers} = this.props;
-        console.log('listUsers: ', listUsers);
 
+const DisplayInfor = (props) => {
+    const { listUsers } = props;
+    const [isShowHideListUser, setShowHideListUser] = useState(true);
+    const handleShowHideListUser = () => {
+        setShowHideListUser(!isShowHideListUser); 
+    }
         return (
             <div className='display-infor-container'>
-                {/* <img src={logo} alt="logo" /> */}
                 <div>
-                    <span onClick = {() => this.handleShowHide()}>
-                        {this.state.isShowListUsers === true ? 'Hide list users': "Show list users"}
+                    <span onClick={() => handleShowHideListUser()}>
+                        {isShowHideListUser === true ? 'Show List Users' : 'Hide List Users'}
                     </span>
                 </div>
-                {this.state.isShowListUsers &&
+                {isShowHideListUser &&
                 <>
                 {listUsers.map((user)=>{
                     return (
@@ -35,7 +26,7 @@ class DisplayInfor extends React.Component {
                                 <div>My age: {user.age} </div>
                             </div>
                             <div>
-                                <button onClick={() => this.props.handleDeleteUser(user.id)}>Delete</button>
+                                <button onClick={() => props.handleDeleteUser(user.id)}>Delete</button>
                             </div>
                             <hr />
                         </div>
@@ -46,7 +37,5 @@ class DisplayInfor extends React.Component {
     }
             </div>
         );
-    }
 }
-
 export default DisplayInfor;
