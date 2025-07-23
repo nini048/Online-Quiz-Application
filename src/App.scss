@@ -1,4 +1,3 @@
-
 body {
   padding: 0;
   margin: 0;
@@ -8,20 +7,96 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.app-container{
-  .header-container{
-    .navbar-nav {
-      z-index: 10;
-      opacity: 0.6;
-      .nav-link{
-        &.active{
-      color: pink;
-        }
+
+@media (min-width: 1650px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1600px !important
+  }
+}
+
+.app-container {
+  .header-container {
+    .btn-login {
+      height: 40px;
+      border-radius: 5px;
+      margin-right: 10px;
+      padding: 0 15px;
+      border: 1px solid #535353;
+
+      &:hover {
+        background: white;
+      }
     }
+  }
+
+  .btn-signup {
+    height: 40px;
+    border-radius: 5px;
+    padding: 0 15px;
+    background: #303030;
+    color: white;
+
+    &:hover {
+      background: black;
+    }
+  }
+
+  .homepage-content {
+    padding: 200px 150px;
+    position: relative;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    .title-1 {
+
+      font-size: 45px;
+      font-weight: 500;
+    }
+
+    .title-2 {
+      font-size: 22px;
+      font-weight: 300;
+    }
+
+    .title-3 {
+      button {
+        padding: 0 15px;
+        background: #303030;
+        color: white;
+        border-radius: 5px;
+        height: 40px;
+
+        &:hover {
+          background: black;
+        }
+      }
+
+    }
+  }
+
+  .navbar {
+    padding-top: 20px;
+    z-index: 10;
+    background-color: transparent !important;
+
+    .nav-link {
+      &.active {
+        color: pink;
+      }
     }
   }
 }
-video{
+
+
+video {
   position: fixed;
   bottom: 0;
   width: 100vw;

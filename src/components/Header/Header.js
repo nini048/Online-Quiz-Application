@@ -14,17 +14,19 @@ const Header = () => {
                     <Nav className="me-auto">
                         <NavLink to='/' className='nav-link'>Home</NavLink>
                         <NavLink to='/user' className='nav-link'>User</NavLink>
-                        <NavLink to ='/admin' className='nav-link'>Admin</NavLink>
-               
+                        <NavLink to='/admin' className='nav-link'>Admin</NavLink>
+
                     </Nav>
 
-                    <Nav> 
-                        <NavDropdown title="Setting" id="basic-nav-dropdown">
+                    <Nav>
+                        <button className='btn-login'>Log in</button>
+                        <button className='btn-signup'>Sign up</button>
+                        {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
                             <NavDropdown.Item >Log in</NavDropdown.Item>
                             <NavDropdown.Item >Log out</NavDropdown.Item>
                             <NavDropdown.Item >Profile</NavDropdown.Item>
 
-                        </NavDropdown>
+                        </NavDropdown> */}
 
                     </Nav>
                 </Navbar.Collapse>
