@@ -7,9 +7,10 @@ import {
     SidebarHeader,
     SidebarFooter,
     SidebarContent,
+
 } from 'react-pro-sidebar';
 import { FiBox } from "react-icons/fi";
-
+import { Link } from 'react-router-dom';
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
 
 
@@ -28,7 +29,7 @@ const SideBar = (props) => {
                 <SidebarHeader>
                     <div
                         style={{
-                            padding: '20px',
+                            padding: '15px 20px',
                             textTransform: 'uppercase',
                             fontWeight: 'bold',
                             fontSize: 14,
@@ -40,7 +41,11 @@ const SideBar = (props) => {
                     >
                         <div className={`sidebar-header-custom ${collapsed ? 'collapsed' : ''}`}>
                             <div className="logo-left">
-                                <FiBox size={30}  />
+
+                                <Link to='/'>
+                                    <FiBox size={30} />
+                                </Link>
+
                             </div>
                             <div className="title-center">
                                 nini
@@ -57,6 +62,7 @@ const SideBar = (props) => {
                         // suffix={<span className="badge red">New</span>}
                         >
                             Dashboard
+                            <Link to='/admin' />
                         </MenuItem>
 
                     </Menu>
@@ -67,7 +73,10 @@ const SideBar = (props) => {
                             title='Features'
                         >
 
-                            <MenuItem> Users Manager</MenuItem>
+                            <MenuItem>
+                                Users Manager
+                                <Link to='/admin/manager-user' />
+                            </MenuItem>
                             <MenuItem> Quizs Manager</MenuItem>
                             <MenuItem> Questions Manager</MenuItem>
                         </SubMenu>
