@@ -1,11 +1,11 @@
 import videohomepage from '../../assets/video-homepage.mp4'
 const HomePage = (props) => {
     return (
-        <div class="homepage-container">
+        <div className="homepage-container">
             <video autoPlay muted loop>
                 <source src={videohomepage} type='video/mp4' />
             </video>
-            <div class="homepage-content">
+            <div className="homepage-content">
                 <div className='title-1'>There's a better way to ask</div>
                 <div className='title-2'>You don't want to make a boring form. And
                     your audience won't answer one. Create a

@@ -12,11 +12,11 @@ const App = () => {
       <div className='header-container'>
         <Header />
       </div>
-      <div class="main-container">
-        <div class="sidenav-container">
+      <div className="main-container">
+        <div className="sidenav-container">
 
         </div>
-        <div class="app-container">
+        <div className="app-container">
           <Outlet/>
         </div>
       </div>
