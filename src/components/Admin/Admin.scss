@@ -1,6 +1,6 @@
 .admin-container {
     display: flex;
-
+    background:#f6f5f1 ;
     .admin-sidebar {}
 
 
@@ -8,10 +8,10 @@
         height: 100vh !important;
 
         .pro-sidebar-inner {
-            background: white;
+            background: #f6f5f1;
             color: black;
             .pro-icon {
-                color: white;
+                color: #f6f5f1;
             }
 
             .sidebar-header-custom {
@@ -40,10 +40,10 @@
             .pro-menu {
                 .pro-menu-item{
                     .react-slidedown{
-                        background: white;
+                        background: #f6f5f1;
                     }
                     .popper-inner{
-                        background-color: white !important;
+                        background-color: #f6f5f1 !important;
                     }
 
                 }
@@ -102,3 +102,6 @@
     }
 
 }
+
+
+

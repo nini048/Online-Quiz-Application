@@ -9,7 +9,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import User from './components/User/User';
 import Admin from './components/Admin/Admin';
 import HomePage from './components/Home/HomePage';
-import ManagerUser from './components/Admin/Content/ManagerUser';
+import ManagerUser from './components/Admin/Content/ManageUser';
 import DashBoard from './components/Admin/Content/DashBoard';
 
 
