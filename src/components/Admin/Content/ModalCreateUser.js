@@ -1,9 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FaCirclePlus } from "react-icons/fa6";
+import { ToastContainer, toast } from 'react-toastify';
+import { postCreateNewUser } from "../../../services/apiServices";
+
 
 const ModalCreateUser = (props) => {
     const { show, setShow } = props;
@@ -31,28 +32,34 @@ const ModalCreateUser = (props) => {
         setUsername('');
         setRole('USER');
         setImage('');
-        
+
     };
-    const handleSubmitCreateUser = async() => {
-
-        let data1 = {
-            email:email,
-            password:password,
-            username:username,
-            role: role,
-            userImage: image,
-
+    const validateEmail = (email) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+    const handleSubmitCreateUser = async () => {
+        const isValidEmail = validateEmail(email);
+        if (!isValidEmail) {
+            toast.error('invalid email');
+            return;
         }
-        console.log(data1);
-        const data = new FormData();
-        data.append('email', email);
-        data.append('password', password);
-        data.append('username', username);
-        data.append('role', role);
-        data.append('userImage', image);
-        let res = axios.post('http://localhost:8081/api/v1/participant', data)
-        console.log('>>>check res: ', res);
+        if (!password) {
+            toast.error('invalid password');
+            return;
+        }
         
+        let data = await postCreateNewUser(email, password, username, role, image)
+        console.log('>>>>componant data: ',data);
+        if (data && data.EC === 0) {
+            toast.success('successful!!');
+            handleClose();
+            await props.fetchListUsers();
+        } else
+        if (data && data.EC !== 0) {
+            toast.error(data.EM);
+        }
+
     }
 
     return (
