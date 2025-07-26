@@ -6,9 +6,12 @@ import { useEffect, useState } from "react"
 import { getAllUsers } from "../../../services/apiServices";
 import './ManageUser.scss'
 import TableUser from './TableUser';
+import ModalUpdateUser from './ModalUpdateUser';
 const ManagerUser = (props) => {
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
-     const [listUsers, setListUsers] = useState([]);
+    const [listUsers, setListUsers] = useState([]);
+    const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
+    const [dataUpdate, setDataUpdate] = useState({})
     useEffect(() => {
         fetchListUser();
     }, []);
@@ -18,9 +21,11 @@ const ManagerUser = (props) => {
         console.log('data: ', data);
         setListUsers(data.DT);
     }
+    const handleClickBtnUpdate = (user) => {
+        setShowModalUpdateUser(true);
+        setDataUpdate(user);
+    }
 
-
-   
     return (
         <div className="manage-user-container">
             <div className="title">
@@ -39,13 +44,25 @@ const ManagerUser = (props) => {
                 
             </div>
             <div className='table-user-container'>
-                <TableUser listUsers={listUsers}/>    
+                <TableUser
+                    listUsers={listUsers}
+                   
+                    handleClickBtnUpdate = {handleClickBtnUpdate}
+                />    
                
             </div>
             <ModalCreateUser
                 show={showModalCreateUser}
                 setShow={setShowModalCreateUser}
-                fetchListUsers = {fetchListUser}
+                fetchListUsers={fetchListUser}
+                
+            />
+            <ModalUpdateUser
+                show={showModalUpdateUser}
+                 setShow={setShowModalUpdateUser}
+                fetchListUsers={fetchListUser}
+                dataUpdate = {dataUpdate}
+
             />
         </div>
         
