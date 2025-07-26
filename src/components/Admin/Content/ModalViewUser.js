@@ -8,7 +8,7 @@ import _ from 'lodash';
 import './ManageUser.scss'
 
 
-const ModalUpdateUser = (props) => {
+const ModalViewUser = (props) => {
     const { show, setShow, dataUpdate, setDataUpdate } = props;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,16 +30,7 @@ const ModalUpdateUser = (props) => {
         
         }
     }, [dataUpdate]);
-    const handleUploadImage = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            setImage(event.target.files[0]);
-        }
-        else {
-            // setPreviewImage('');
-        }
 
-    }
     const handleClose = () => {
         setShow(false);
         setEmail('');
@@ -52,20 +43,6 @@ const ModalUpdateUser = (props) => {
     };
 
     
-    const handleSubmitCreateUser = async () => {
-        let data = await putUpdateUser(dataUpdate.id,username, role, image)
-        console.log('>>>>componant data: ', data);
-        if (data && data.EC === 0) {
-            toast.success('successful!!');
-            handleClose();
-            await props.fetchListUsers();
-        } else
-            if (data && data.EC !== 0) {
-                toast.error(data.EM);
-            }
-
-    }
-
 
     return (
         <>
@@ -110,6 +87,7 @@ const ModalUpdateUser = (props) => {
                             <input
                                 type="text"
                                 className="form-control"
+                                disabled
                                 value={username}
                                 onChange={(event) => setUsername(event.target.value)}
                             />
@@ -120,23 +98,13 @@ const ModalUpdateUser = (props) => {
                                 className="form-select"
                                 onChange={(event) => setRole(event.target.value)}
                                 value={role}
+                                disabled
                             >
                                 <option value='USER'>USER</option>
                                 <option value='ADMIN'>ADMIN</option>
                             </select>
                         </div>
-                        <div className="col-md-12">
-                            <label className='form-label label-upload' htmlFor="labelUpload">
-                                <FaCirclePlus /> Upload file image
-                            </label>
 
-                            <input
-                                type="file"
-                                hidden
-                                id='labelUpload'
-                                onChange={(event) => { handleUploadImage(event) }}
-                            />
-                        </div>
                         <div className="col-md-12 img-preview">
                             {previewImage ?
                                 <img src={previewImage} />
@@ -154,13 +122,13 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => {handleSubmitCreateUser ()}}>
+                    {/* <Button variant="primary" onClick={() => {handleSubmitCreateUser ()}}>
                         Save
-                    </Button>
+                    </Button> */}
                 </Modal.Footer>
             </Modal>
         </>
     );
 }
 
-export default ModalUpdateUser
+export default ModalViewUser
