@@ -1,6 +1,8 @@
 .admin-container {
     display: flex;
-    background:#f6f5f1 ;
+    background: #ffffff;
+    font-family: 'Inter', sans-serif;
+
     .admin-sidebar {}
 
 
@@ -8,10 +10,15 @@
         height: 100vh !important;
 
         .pro-sidebar-inner {
-            background: #f6f5f1;
-            color: black;
+            background: #ffffff;
+            color: #333;
+
             .pro-icon {
-                color: #f6f5f1;
+                color: #ffffff;
+                // background-color: #ffffff;
+                // border: 1px solid #333 ;
+                // border-radius: 16px;
+                // overflow: hidden;
             }
 
             .sidebar-header-custom {
@@ -19,86 +26,176 @@
                 align-items: center;
                 height: 40px;
 
-                .title-center{
+                .title-center {
                     width: 100%;
                     display: flex;
-                    justify-content: center;      
-                    font-size: 18px;      
+                    justify-content: center;
+                    font-size: 18px;
                 }
-                &.collapsed{
+
+                &.collapsed {
                     height: 40px;
                     flex-direction: column;
-                    
-                    .title-center{
+
+                    .title-center {
                         font-size: 14px;
                     }
 
                 }
-                
-                
+
+
             }
+
             .pro-menu {
-                .pro-menu-item{
-                    .react-slidedown{
-                        background: #f6f5f1;
+                .pro-menu-item {
+                    .react-slidedown {
+                        background: #ffffff;
                     }
-                    .popper-inner{
-                        background-color: #f6f5f1 !important;
+
+                    .popper-inner {
+                        background-color: #ffffff !important;
                     }
 
                 }
             }
-            .pro-sidebar-footer{
+
+            .pro-sidebar-footer {
                 .sidebar-btn-wrapper {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-
-                .sidebar-btn {
-                    transition: width 0.3s;
-                    width: 150px;
-                    padding: 1px 15px;
-                    border-radius: 40px;
-                    background: rgba(20, 20, 20, 0.05);
-                    color: #1a1a1a;
-                    text-decoration: none;
-                    margin: 0 auto;
-                    height: 35px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    text-overflow: ellipsis;
-                    overflow: hidden;
 
-                    span {
-                        margin-left: 5px;
-                        font-size: 13px;
+
+                    .sidebar-btn {
+                        transition: width 0.3s;
+                        width: 150px;
+                        padding: 1px 15px;
+                        border-radius: 40px;
+                        background: rgba(20, 20, 20, 0.05);
+                        color: #1a1a1a;
+                        text-decoration: none;
+                        margin: 0 auto;
+                        height: 35px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+
+                        span {
+                            margin-left: 5px;
+                            font-size: 13px;
+                        }
+
+                        &:hover {
+                            color: rgb(145, 138, 138);
+
+                        }
                     }
+                }
+
+            }
+
+        }
+    }
+
+    .admin-content {
+        width: 100%;
+
+        .admin-header {
+            height: 40px;
+
+        }
+
+        .admin-main {
+            .table {
+                border-radius: 12px;
+                overflow: hidden;
+                background-color: white;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+                th {
+                    background-color: #ffe6ef; // pastel pink
+                    color: #8b3a62;
+                    font-weight: 600;
+                }
+
+                td {
+                    vertical-align: middle;
+                }
+
+                tr {
+                    transition: background 0.2s ease;
 
                     &:hover {
-                        color: rgb(145, 138, 138);
-
+                        background-color: #fff0f6; // hover nhẹ nhàng
                     }
                 }
             }
 
+            .btn {
+                border-radius: 8px;
+                font-size: 14px;
+                padding: 4px 12px;
+                transition: all 0.2s ease;
             }
-            
-        }
+
+            .btn-secondary {
+                background-color: #adb5bd;
+                border: none;
+
+                &:hover {
+                    background-color: #868e96;
+                }
+            }
+
+            .btn-success {
+                background-color: #d63384;
+                border: none;
+
+                &:hover {
+                    background-color: #c22568;
+                }
+            }
+
+            .btn-danger {
+                background-color: #fa5252;
+                border: none;
+
+                &:hover {
+                    background-color: #e03131;
+                }
+            }
+
+            .user-pagination {
+  margin-top: 20px;
+
+  .pagination {
+    gap: 8px;
+  }
+
+  .page-link {
+    color: #d63384;
+    border: none;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: 0.2s ease;
+
+    &:hover {
+      background-color: #f8d7e7;
+      box-shadow: 0 2px 6px rgba(214, 51, 132, 0.3);
     }
-    .admin-content{
-        width: 100%;
-        .admin-header{
-            height: 40px;
-           
-        }
-        .admin-main{
-           
+  }
+
+  .active .page-link {
+    background-color: #d63384;
+    color: white;
+    box-shadow: 0 0 8px rgba(214, 51, 132, 0.4);
+  }
+}
+
+
         }
     }
 
 }
-
-
-

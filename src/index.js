@@ -11,6 +11,7 @@ import Admin from './components/Admin/Admin';
 import HomePage from './components/Home/HomePage';
 import ManagerUser from './components/Admin/Content/ManageUser';
 import DashBoard from './components/Admin/Content/DashBoard';
+import Login from './components/Auth/Login';
 
 
 
@@ -23,13 +24,13 @@ root.render(
           <Route path="/" element={<App />}>
             <Route index element={<HomePage />} />
             <Route path="/user" element={<User />} />
-            
           </Route>
           <Route path="/admin" element={<Admin />}>
             <Route index element={<DashBoard />} />
             <Route path="manager-user" element={<ManagerUser />} />
           </Route>
-        </Routes>
+           <Route path="/login" element={<Login />} />
+          </Routes>
       </BrowserRouter>
     </React.StrictMode>
   </Provider>

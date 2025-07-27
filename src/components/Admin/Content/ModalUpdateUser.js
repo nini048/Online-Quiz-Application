@@ -17,6 +17,8 @@ const ModalUpdateUser = (props) => {
     const [image, setImage] = useState('');
     const [previewImage, setPreviewImage] = useState('')
 
+
+
     useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setEmail(dataUpdate.email);
@@ -48,17 +50,18 @@ const ModalUpdateUser = (props) => {
         setRole('USER');
         setImage('');
         setDataUpdate({});
+        setPreviewImage('')
 
     };
 
     
-    const handleSubmitCreateUser = async () => {
+    const handleSubmitUpdateUser = async () => {
         let data = await putUpdateUser(dataUpdate.id,username, role, image)
-        console.log('>>>>componant data: ', data);
+        console.log('>>>>component data: ', data);
         if (data && data.EC === 0) {
             toast.success('successful!!');
             handleClose();
-            await props.fetchListUsers();
+            await props.fetchListUsersWithPaginate(props.currentPage);
         } else
             if (data && data.EC !== 0) {
                 toast.error(data.EM);
@@ -154,7 +157,7 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => {handleSubmitCreateUser ()}}>
+                    <Button variant="primary" onClick={() => {handleSubmitUpdateUser ()}}>
                         Save
                     </Button>
                 </Modal.Footer>

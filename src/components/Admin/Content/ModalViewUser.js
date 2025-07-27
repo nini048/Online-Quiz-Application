@@ -39,6 +39,7 @@ const ModalViewUser = (props) => {
         setRole('USER');
         setImage('');
         setDataUpdate({});
+        setPreviewImage('')
 
     };
 
