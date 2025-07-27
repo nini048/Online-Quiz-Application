@@ -1,23 +1,20 @@
 import { useState } from 'react';
-import './Login.scss';
+import './Register.scss';
 import { useNavigate } from 'react-router';
-import { postLogin } from '../../services/apiServices';
+import { postRegister } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
-const Login = (props) => {
+const Register = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+    const [username, setUsername] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
-    const handleShowPassword = () => {
-        setShowPassword(!showPassword);
-
-    }
-    const handleLogin = async () => {
-        let data = await postLogin(email, password);
+    const handleRegister = async () => {
+        let data = await postRegister(email, username, password);
         console.log('data: ', data);
         if (data && data.EC === 0) {
             toast.success('Success!');
@@ -28,18 +25,33 @@ const Login = (props) => {
                 toast.error(data.EM);
             }
     }
+    const handleShowPassword = () => {
+        setShowPassword(!showPassword);
+
+    }
+
     return (
-        <div className="login-container">
+        <div className="register-container">
             <div className="header">
-                <span>Don't have an account yet?</span>
-                <button onClick={() => { navigate('/register') }}>Sign up</button>
+                <span>Already have an account?</span>
+                <button onClick={() => { navigate('/login') }}>Log in</button>
             </div>
-            <div className="login-content">
+            <div className='register-content'>
                 <div className="title col-2 mx-auto fw-bold">
-                    LOG IN
+                    SIGN UP
                 </div>
 
                 <div className="content-form col-2 mx-auto">
+
+                    <div className="form-group">
+                        <label>Username</label>
+                        <input
+                            type={"text"}
+                            className='form-control'
+                            value={username}
+                            onChange={(event) => setUsername(event.target.value)}
+                        />
+                    </div>
                     <div className="form-group">
                         <label>Email</label>
                         <input
@@ -62,14 +74,19 @@ const Login = (props) => {
                                 {!showPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>
                         </div>
+
+
+
+
+
+
                     </div>
-                    <span className='forgot-password'>Forgot password?</span>
                     <div>
                         <button
                             className='btn-submit'
-                            onClick={() => { handleLogin() }}
+                            onClick={() => { handleRegister() }}
                         >
-                            Login
+                            Sign up
                         </button>
                     </div>
                     <div className="text-center">
@@ -83,8 +100,9 @@ const Login = (props) => {
                     </div>
 
                 </div>
+
             </div>
         </div>
     )
 }
-export default Login
+export default Register
