@@ -12,7 +12,11 @@
         .pro-sidebar-inner {
             background: #ffffff;
             color: #333;
+            &:hover{
+                color: black;
+            }
 
+  
             .pro-icon {
                 color: #ffffff;
                 // background-color: #ffffff;
@@ -25,6 +29,7 @@
                 display: flex;
                 align-items: center;
                 height: 40px;
+                justify-content: center;
 
                 .title-center {
                     width: 100%;
@@ -34,12 +39,20 @@
                 }
 
                 &.collapsed {
-                    height: 40px;
-                    flex-direction: column;
 
+                    // height: 40px;
                     .title-center {
-                        font-size: 14px;
+                        opacity: 0;
+                        width: 0;
+                        overflow: hidden;
+                        padding: 0;
                     }
+
+                    // flex-direction: column;
+
+                    // .title-center {
+                    //     font-size: 14px;
+                    // }
 
                 }
 
@@ -48,6 +61,10 @@
 
             .pro-menu {
                 .pro-menu-item {
+                    .pro-inner-item {
+                       
+                    }
+
                     .react-slidedown {
                         background: #ffffff;
                     }
@@ -88,7 +105,7 @@
                         }
 
                         &:hover {
-                            color: rgb(145, 138, 138);
+                            color: black !important;
 
                         }
                     }
@@ -102,12 +119,14 @@
     .admin-content {
         width: 100%;
 
-        .admin-header {
-            height: 40px;
 
+        .admin-header {
+            height: 60px;
+            color: #333;
         }
 
         .admin-main {
+            color: #333;
             .table {
                 border-radius: 12px;
                 overflow: hidden;
@@ -115,20 +134,22 @@
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
                 th {
-                    background-color: #ffe6ef; // pastel pink
-                    color: #8b3a62;
+                    background-color: #f8f9fa;
+                    color: #333;
                     font-weight: 600;
                 }
 
                 td {
                     vertical-align: middle;
+                    color: #333;
                 }
 
                 tr {
                     transition: background 0.2s ease;
 
                     &:hover {
-                        background-color: #fff0f6; // hover nhẹ nhàng
+                        background-color: #f1f1f1;
+                        
                     }
                 }
             }
@@ -141,58 +162,59 @@
             }
 
             .btn-secondary {
-                background-color: #adb5bd;
+                background-color: #6c757d;
                 border: none;
 
                 &:hover {
-                    background-color: #868e96;
+                    background-color: #495057;
                 }
             }
 
             .btn-success {
-                background-color: #d63384;
+                background-color: #198754;
                 border: none;
 
                 &:hover {
-                    background-color: #c22568;
+                    background-color: #146c43;
                 }
             }
 
             .btn-danger {
-                background-color: #fa5252;
+                background-color: #dc3545;
                 border: none;
 
                 &:hover {
-                    background-color: #e03131;
+                    background-color: #b02a37;
                 }
             }
 
             .user-pagination {
-  margin-top: 20px;
+                margin-top: 20px;
 
-  .pagination {
-    gap: 8px;
-  }
+                .pagination {
+                    gap: 8px;
+                }
 
-  .page-link {
-    color: #d63384;
-    border: none;
-    border-radius: 10px;
-    background-color: transparent;
-    transition: 0.2s ease;
+                .page-link {
+                    color: #333;
+                    border: 1px solid #dee2e6;
+                    border-radius: 10px;
+                    background-color: #fff;
+                    transition: 0.2s ease;
 
-    &:hover {
-      background-color: #f8d7e7;
-      box-shadow: 0 2px 6px rgba(214, 51, 132, 0.3);
-    }
-  }
+                    &:hover {
+                        background-color: #f1f1f1;
 
-  .active .page-link {
-    background-color: #d63384;
-    color: white;
-    box-shadow: 0 0 8px rgba(214, 51, 132, 0.4);
-  }
-}
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    }
+                }
+
+                .active .page-link {
+                    background-color: #333;
+                    color: white;
+                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+                }
+            }
 
 
         }

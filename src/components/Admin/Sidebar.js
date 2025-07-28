@@ -12,8 +12,9 @@ import {
 import { FiBox } from "react-icons/fi";
 import { Link } from 'react-router-dom';
 import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
-
-
+import { SiQuizlet } from "react-icons/si";
+import { TfiJoomla } from "react-icons/tfi";
+import { MdOutlineDashboard } from "react-icons/md";
 
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -41,14 +42,13 @@ const SideBar = (props) => {
                     >
                         <div className={`sidebar-header-custom ${collapsed ? 'collapsed' : ''}`}>
                             <div className="logo-left">
-
                                 <Link to='/'>
-                                    <FiBox size={30} />
+                                    <TfiJoomla size={24} color='#333'/>
                                 </Link>
 
                             </div>
                             <div className="title-center">
-                                nini
+                                QUIZZZZ
                             </div>
                         </div>
 
@@ -56,9 +56,9 @@ const SideBar = (props) => {
                 </SidebarHeader>
 
                 <SidebarContent>
-                    <Menu iconShape="circle">
+                    <Menu iconShape='circle' color='#333'>
                         <MenuItem
-                            icon={<FaTachometerAlt />}
+                            icon={<MdOutlineDashboard />}
                         // suffix={<span className="badge red">New</span>}
                         >
                             Dashboard
@@ -74,11 +74,11 @@ const SideBar = (props) => {
                         >
 
                             <MenuItem>
-                                Users Manager
+                                Manage User
                                 <Link to='/admin/manager-user' />
                             </MenuItem>
-                            <MenuItem> Quizs Manager</MenuItem>
-                            <MenuItem> Questions Manager</MenuItem>
+                            <MenuItem> Manage Quiz</MenuItem>
+                            <MenuItem> Manage Question</MenuItem>
                         </SubMenu>
 
                     </Menu>
