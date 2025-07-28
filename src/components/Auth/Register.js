@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { postRegister } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 
 const Register = (props) => {
@@ -11,18 +12,22 @@ const Register = (props) => {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleRegister = async () => {
+         setIsLoading(true);
         let data = await postRegister(email, username, password);
         console.log('data: ', data);
         if (data && data.EC === 0) {
             toast.success('Success!');
+             setIsLoading(false);
             navigate('/')
 
         } else
             if (data && +data.EC !== 0) {
                 toast.error(data.EM);
+                 setIsLoading(false);
             }
     }
     const handleShowPassword = () => {
@@ -85,8 +90,10 @@ const Register = (props) => {
                         <button
                             className='btn-submit'
                             onClick={() => { handleRegister() }}
+                            disabled = {isLoading}
                         >
-                            Sign up
+                            {isLoading && <AiOutlineLoading3Quarters className='loader-icon' /> }
+                            <span>Sign up</span>
                         </button>
                     </div>
                     <div className="text-center">

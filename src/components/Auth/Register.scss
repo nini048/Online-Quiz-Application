@@ -18,7 +18,6 @@
         align-items: center;
         justify-content: flex-end;
 
-
         button {
             border: none;
             padding: 10px 15px;
@@ -31,6 +30,10 @@
                 background-color: black;
             }
         }
+
+
+
+
 
 
     }
@@ -53,6 +56,25 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+
+        button {
+            border: none;
+            padding: 10px 15px;
+
+            border-radius: 5px;
+            color: white;
+            background: #333;
+
+            &:hover {
+                background-color: black;
+            }
+
+            &:disabled {
+                background-color: #dddddd;
+                color: #afafaf;
+                cursor: no-drop;
+            }
+        }
 
         .back {
             cursor: pointer;
@@ -112,6 +134,20 @@
         }
 
     }
+    .loader-icon {
+        margin-right: 7px;
+        top: 2px;
+        animation: spin 1s infinite linear;
+    }
+    @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
 
 
 }

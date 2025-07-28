@@ -4,28 +4,36 @@ import { useNavigate } from 'react-router';
 import { postLogin } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
 
     }
     const handleLogin = async () => {
+        setIsLoading(true);
         let data = await postLogin(email, password);
         console.log('data: ', data);
         if (data && data.EC === 0) {
+            dispatch(doLogin(data))
             toast.success('Success!');
-            navigate('/')
+            setIsLoading(false);
+            navigate('/');
 
         } else
             if (data && +data.EC !== 0) {
                 toast.error(data.EM);
+                setIsLoading(false);
             }
     }
     return (
@@ -68,8 +76,11 @@ const Login = (props) => {
                         <button
                             className='btn-submit'
                             onClick={() => { handleLogin() }}
+                            disabled = {isLoading}
                         >
-                            Login
+                            {isLoading && <AiOutlineLoading3Quarters className='loader-icon' />}
+                            <span>Login</span>
+
                         </button>
                     </div>
                     <div className="text-center">
