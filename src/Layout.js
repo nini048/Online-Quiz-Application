@@ -1,4 +1,5 @@
 import App from './App';
+
 import User from './components/User/User';
 import Admin from './components/Admin/Admin';
 import HomePage from './components/Home/HomePage';
@@ -25,14 +26,14 @@ const Layout = (props) => {
             </Routes>
              <ToastContainer
                 position="bottom-right"
-                autoClose={5000}
+                autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}
                 rtl={false}
                 pauseOnFocusLoss
                 draggable
-                pauseOnHover
+                pauseOnHover = {false}
                 theme="light"
 
             />
