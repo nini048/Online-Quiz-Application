@@ -1,6 +1,7 @@
 
 import { INCREMENT, DECREMENT } from '../action/counterAction';
-import { FETCH_USER_LOGIN_SUCCESS } from '../action/userAction'
+import { FETCH_USER_LOGIN_SUCCESS, FETCH_USER_LOGOUT_SUCCESS } from '../action/userAction';
+
 const INITIAL_STATE = {
     account: {
         access_token: '',
@@ -15,7 +16,6 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_USER_LOGIN_SUCCESS:
-            console.log('>>>check action: ', action);
             return {
                 ...state,
                 account: {
@@ -28,9 +28,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 isAuthenticated: true
             };
 
-        case DECREMENT:
+        case FETCH_USER_LOGOUT_SUCCESS:
             return {
-                ...state, count: state.count - 1,
+                ...state,
+                account: {
+                    access_token: '',
+                    refresh_token: '',
+                    username: '',
+                    image: '',
+                    role: '',
+                },
+                 isAuthenticated: false
             };
         default: return state;
     }

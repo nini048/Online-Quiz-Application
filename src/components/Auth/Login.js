@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Login.scss';
 import { useNavigate } from 'react-router';
 import { postLogin } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
+// import { doLogin } from '../../redux/reducer/userReducer';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Login = (props) => {
@@ -15,7 +16,21 @@ const Login = (props) => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
+    const account = useSelector(state => state.user.account);
 
+    useEffect(() => {
+  if (account?.role) {
+    if (account.role === 'ADMIN') {
+      navigate('/admin');
+    } else if (account.role === 'USER') {
+        navigate('/user');
+    }
+    else {
+        navigate('/');
+      }
+  }
+    }, [account.role]);
+    
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
 
@@ -27,8 +42,11 @@ const Login = (props) => {
         if (data && data.EC === 0) {
             dispatch(doLogin(data))
             toast.success('Success!');
+
             setIsLoading(false);
-            navigate('/');
+           
+           
+
 
         } else
             if (data && +data.EC !== 0) {

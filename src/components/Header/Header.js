@@ -3,11 +3,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useSelector , useDispatch} from 'react-redux';
+import { persistor } from '../../redux/store';
+import { doLogout } from '../../redux/action/userAction';
+import default_avatar from './default-avatar.png'
 const Header = () => {
     const navigate = useNavigate();
     const isAuthenticated = useSelector(state => state.user.isAuthenticated);
-
+    const dispatch = useDispatch()
+    
     const account = useSelector(state => state.user.account);
 
     const handleLogin = () => {
@@ -15,6 +19,12 @@ const Header = () => {
     }
     const handleRegister = () => {
         navigate('/register');
+    }
+    const handleLogout = async() => {
+        dispatch(doLogout());
+        await persistor.purge(); 
+        navigate('/')
+        
     }
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -37,9 +47,22 @@ const Header = () => {
                             </>
                             :
 
-                            <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                 <NavDropdown.Item >Profile</NavDropdown.Item>
-                                <NavDropdown.Item >Log out</NavDropdown.Item>
+                            <NavDropdown
+                                title={
+                                    < img className='avatar rounded-circle'
+                                        src={account?.image
+                                            ? `data:image/jpeg;base64,${account.image}`
+                                            : default_avatar
+                                        }
+                                        alt='avatar'
+                                       
+                            
+                                    />
+                                }
+                                id="basic-nav-dropdown">
+                                <NavDropdown.Item >Profile</NavDropdown.Item>
+                                <NavDropdown.Item
+                                onClick={()=>{handleLogout()}}>Log out</NavDropdown.Item>
                             </NavDropdown>
 
                         }
