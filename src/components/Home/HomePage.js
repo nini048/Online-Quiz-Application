@@ -13,7 +13,7 @@ const HomePage = (props) => {
                 <div className='title-1'>There's a better way to ask</div>
                 <div className='title-2'>You don't want to make a boring form. And
                     your audience won't answer one. Create a
-                    typeform instead-and make everyone happy.</div>
+                    quizzz instead-and make everyone happy.</div>
                 <div className='title-3'>
                     {!isAuthenticated
                         ? <button onClick={()=>{navigate('/register')}}>Get's started. It's free</button>
