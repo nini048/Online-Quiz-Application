@@ -19,18 +19,18 @@ const Login = (props) => {
     const account = useSelector(state => state.user.account);
 
     useEffect(() => {
-  if (account?.role) {
-    if (account.role === 'ADMIN') {
-      navigate('/admin');
-    } else if (account.role === 'USER') {
-        navigate('/user');
-    }
-    else {
-        navigate('/');
-      }
-  }
+        if (account?.role) {
+            if (account.role === 'ADMIN') {
+                navigate('/admin');
+            } else if (account.role === 'USER') {
+                navigate('/user');
+            }
+            else {
+                navigate('/');
+            }
+        }
     }, [account.role]);
-    
+
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
 
@@ -40,12 +40,12 @@ const Login = (props) => {
         let data = await postLogin(email, password);
         console.log('data: ', data);
         if (data && data.EC === 0) {
-            dispatch(doLogin(data))
+            dispatch(doLogin(data));
             toast.success('Success!');
 
             setIsLoading(false);
-           
-           
+
+
 
 
         } else
@@ -94,7 +94,7 @@ const Login = (props) => {
                         <button
                             className='btn-submit'
                             onClick={() => { handleLogin() }}
-                            disabled = {isLoading}
+                            disabled={isLoading}
                         >
                             {isLoading && <AiOutlineLoading3Quarters className='loader-icon' />}
                             <span>Login</span>

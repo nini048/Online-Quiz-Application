@@ -3,16 +3,18 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from 'react-router';
-import { useSelector , useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { persistor } from '../../redux/store';
 import { doLogout } from '../../redux/action/userAction';
 import default_avatar from './default-avatar.png'
+import { useEffect } from 'react';
 const Header = () => {
     const navigate = useNavigate();
     const isAuthenticated = useSelector(state => state.user.isAuthenticated);
+   
     const dispatch = useDispatch()
-    
     const account = useSelector(state => state.user.account);
+   
 
     const handleLogin = () => {
         navigate('/login');
@@ -20,12 +22,13 @@ const Header = () => {
     const handleRegister = () => {
         navigate('/register');
     }
-    const handleLogout = async() => {
+    const handleLogout = async () => {
         dispatch(doLogout());
-        await persistor.purge(); 
+        await persistor.purge();
         navigate('/')
-        
+
     }
+
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
@@ -55,14 +58,14 @@ const Header = () => {
                                             : default_avatar
                                         }
                                         alt='avatar'
-                                       
-                            
+
+
                                     />
                                 }
                                 id="basic-nav-dropdown">
                                 <NavDropdown.Item >Profile</NavDropdown.Item>
                                 <NavDropdown.Item
-                                onClick={()=>{handleLogout()}}>Log out</NavDropdown.Item>
+                                    onClick={() => { handleLogout() }}>Log out</NavDropdown.Item>
                             </NavDropdown>
 
                         }

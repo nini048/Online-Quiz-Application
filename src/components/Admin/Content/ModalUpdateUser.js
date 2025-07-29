@@ -6,8 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { putUpdateUser } from "../../../services/apiServices";
 import _ from 'lodash';
 import './ManageUser.scss'
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { doUpdate } from '../../../redux/action/userAction';
+import { store } from '../../../redux/store';
 const ModalUpdateUser = (props) => {
     const { show, setShow, dataUpdate, setDataUpdate } = props;
     const [email, setEmail] = useState('');
@@ -15,7 +16,9 @@ const ModalUpdateUser = (props) => {
     const [username, setUsername] = useState('');
     const [role, setRole] = useState('USER');
     const [image, setImage] = useState('');
-    const [previewImage, setPreviewImage] = useState('')
+    const [previewImage, setPreviewImage] = useState('');
+    const dispatch = useDispatch();
+    // const account = useSelector(state => state.user.account);
 
 
 
@@ -25,14 +28,16 @@ const ModalUpdateUser = (props) => {
             setUsername(dataUpdate.username);
             setRole(dataUpdate.role);
             setImage(dataUpdate.image);
+            console.log('image old: ', image);
+
             if (dataUpdate.image) {
                 setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`)
             }
             else {
                 setPreviewImage('')
             }
-            
-        
+
+
         }
     }, [dataUpdate]);
     const handleUploadImage = (event) => {
@@ -54,15 +59,24 @@ const ModalUpdateUser = (props) => {
         setImage('');
         setDataUpdate({});
         setPreviewImage('');
-    
+
 
     };
 
-    
+
     const handleSubmitUpdateUser = async () => {
-        let data = await putUpdateUser(dataUpdate.id,username, role, image)
-        console.log('>>>>component data: ', data);
+        let data = await putUpdateUser(dataUpdate.id, username, role, image)
+        console.log('data: ', data);
+
+
         if (data && data.EC === 0) {
+            //  const currentAccount = store.getState().account;
+            //  console.log('currentAccount: ', currentAccount);
+
+            // dispatch(doUpdate({
+            //     ...data.DT,
+            //     image:image
+            // }));
             toast.success('successful!!');
             handleClose();
             await props.fetchListUsersWithPaginate(props.currentPage);
@@ -161,7 +175,7 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => {handleSubmitUpdateUser ()}}>
+                    <Button variant="primary" onClick={() => { handleSubmitUpdateUser() }}>
                         Save
                     </Button>
                 </Modal.Footer>

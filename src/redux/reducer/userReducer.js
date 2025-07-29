@@ -1,6 +1,6 @@
 
 import { INCREMENT, DECREMENT } from '../action/counterAction';
-import { FETCH_USER_LOGIN_SUCCESS, FETCH_USER_LOGOUT_SUCCESS } from '../action/userAction';
+import { FETCH_USER_LOGIN_SUCCESS, FETCH_USER_LOGOUT_SUCCESS, FETCH_USER_UPDATE_SUCCESS } from '../action/userAction';
 
 const INITIAL_STATE = {
     account: {
@@ -40,6 +40,15 @@ const userReducer = (state = INITIAL_STATE, action) => {
                 },
                  isAuthenticated: false
             };
+        case FETCH_USER_UPDATE_SUCCESS:
+            return {
+                account: {
+                    username: action?.payload?.DT?.username,
+                    image: action?.payload?.DT?.image,
+                    role: action?.payload?.DT?.role,
+                },
+                isAuthenticated: true
+            }
         default: return state;
     }
 };
