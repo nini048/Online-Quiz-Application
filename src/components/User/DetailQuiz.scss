@@ -1,12 +1,17 @@
 .detail-quiz-container {
     display: flex;
     gap: 20px;
-    padding: 50px;
-
+    padding: 50px 80px;
 
     .left-content {
-        border: solid 1px green;
+        padding: 35px 50px;
+        border: #333 1px solid;
+        border-radius: 15px;
+        min-height: 750px;
         width: 80%;
+
+
+
 
         .title {
             font-size: 30px;
@@ -24,11 +29,13 @@
             display: flex;
             gap: 15px;
             justify-content: center;
+
             .btn {
                 background-color: transparent;
                 color: #333;
                 border: 1px solid #ccc;
-                padding: 8px 16px;
+                width: 80px;
+                padding: 8px ;
                 border-radius: 6px;
                 font-weight: 500;
                 transition: all 0.2s ease;
@@ -36,15 +43,28 @@
                 &:hover {
                     background-color: #f2f2f2;
                     border-color: #999;
-                }}
-
-
+                }
             }
 
+            .btn-submit {
+                background-color: #333; 
+                color: #fff; 
+                font-weight: 500;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: #555; 
+                }
+            }
+
+
         }
 
-        .right-content {
-            border: solid 1px red;
-            width: 30%;
-        }
     }
+
+    .right-content {
+        border: #333 1px solid;
+        border-radius: 15px;
+        width: 30%;
+    }
+}
