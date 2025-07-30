@@ -1,6 +1,10 @@
+import { Outlet } from "react-router"
+
 const User = (props) => {
     return (
-        <div>user component</div>
+        <div className="user-container">
+            <Outlet/>
+       </div>
     )
 }
 export default User

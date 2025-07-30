@@ -24,14 +24,18 @@ const Layout = (props) => {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="/user" element={<ListQuiz />} />
+                    <Route path="/user" element={<User />} >
+                        <Route path="quiz" element={<ListQuiz />} />
+                        <Route path="manager-quiz" element={<ManagerQuiz />} />
+                        <Route path="quiz/:id" element={<DetailQuiz />} />
 
-                    <Route path="/quiz/:id" element={<DetailQuiz />} />
+                    </Route>
+
                 </Route>
                 <Route path="/admin" element={<Admin />}>
                     <Route index element={<DashBoard />} />
                     <Route path="manager-user" element={<ManagerUser />} />
-                    <Route path="manager-quiz" element={<ManagerQuiz />} />
+
                 </Route>
 
                 <Route path="/login" element={<Login />} />

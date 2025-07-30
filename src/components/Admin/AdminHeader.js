@@ -29,19 +29,19 @@ const AdminHeader = () => {
 
     }
     const handleSwitchUser = () => {
-         navigate('/user');
+         navigate('/user/quiz');
     }
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
-                <NavLink to='/admin' className='navbar-brand'>QUIZZZZ</NavLink>
+                <NavLink to='manager-user' className='navbar-brand'>QUIZZZZ</NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        {/* <NavLink to='/' className='nav-link'>Home</NavLink> */}
+                        {/* <NavLink to='/' className='nav-link'>Home</NavLink>
                         <NavLink to='manager-user' className='nav-link'>Manager User</NavLink>
-                        <NavLink to='manager-quiz' className='nav-link'>Manager Quiz</NavLink>
+                        <NavLink to='manager-quiz' className='nav-link'>Manager Quiz</NavLink> */}
 
                     </Nav>
 

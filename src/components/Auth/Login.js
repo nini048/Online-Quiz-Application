@@ -21,9 +21,9 @@ const Login = (props) => {
     useEffect(() => {
         if (account?.role) {
             if (account.role === 'ADMIN') {
-                navigate('/admin');
+                navigate('/admin/manager-user');
             } else if (account.role === 'USER') {
-                navigate('/user');
+                navigate('/user/quiz');
             }
             else {
                 navigate('/');

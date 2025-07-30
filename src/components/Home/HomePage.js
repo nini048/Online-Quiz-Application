@@ -17,7 +17,7 @@ const HomePage = (props) => {
                 <div className='title-3'>
                     {!isAuthenticated
                         ? <button onClick={()=>{navigate('/register')}}>Get's started. It's free</button>
-                : <button onClick={()=>{navigate('/user')}}>Doing Quiz Now</button>}
+                : <button onClick={()=>{navigate('/user/quiz')}}>Doing Quiz Now</button>}
                     
                 </div>
             </div>
