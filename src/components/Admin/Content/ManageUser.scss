@@ -1,3 +1,4 @@
+
 .modal-add-user {
     .img-preview {
         height: 150px;
@@ -32,15 +33,17 @@
 }
 
 .manage-user-container {
-    padding: 10px;
-
+    padding: 30px 80px;
+    // width: 80%;
     .user-content {
         .btn-add-new {
             margin: 15px 0;
+            margin-left: 230px;
         }
     }
 
     .title {
+
         font-weight: 600;
         font-size: 20px;
     }

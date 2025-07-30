@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router"
-import { getDataQuiz } from "../../services/apiServices";
+import { getDataQuiz,  postSubmitQuiz } from "../../services/apiServices";
 import './DetailQuiz.scss'
 import _ from "lodash";
 import Question from "./Question";
+import { Modal } from "react-bootstrap";
+import ModalResult from "./ModalResult";
 const DetailQuiz = (props) => {
     const params = useParams();
     const quizId = params.id;
     const location = useLocation();
     const [dataQuiz, setDataQuiz] = useState([]);
     const [index, setIndex] = useState(0);
+    const [isShowModalResult, setIsShowModalResult] = useState(false);
+    const [dataModalResult, setDataModalResult] = useState({})
 
     const handleCheckbox = (answerId, questionId) => {
 
@@ -18,15 +22,43 @@ const DetailQuiz = (props) => {
 
         const index = dataQuizClone.findIndex(item => +item.questionId === +questionId);
 
-        console.log('index: ', index);
-
         if (index !== -1) {
             dataQuizClone[index].selectedAnswerId = answerId;
             setDataQuiz(dataQuizClone);
         }
     }
-    const handleSubmit = () => {
-        alert("Bạn đã hoàn thành quiz! 🎉");
+    const handleSubmit = async () => {
+        let payload = {
+            quizId: +quizId,
+            answers: [],
+        };
+        let answers = [];
+       
+        if (dataQuiz && dataQuiz.length > 0) {
+            dataQuiz.forEach(item => {
+                let questionId = item.questionId;
+                let userAnswerId = item.selectedAnswerId;
+                answers.push({
+                    questionId: +questionId,
+                    userAnswerId: userAnswerId
+                })
+            })
+            payload.answers = answers;
+            let res = await  postSubmitQuiz(payload)
+            console.log('res: ', res);
+            if (res && res.EC === 0) {
+                setDataModalResult({
+                    countCorrect: res.DT.countCorrect,
+                    countTotal: res.DT.countTotal,
+                    quizData: res.DT.quizData
+                })
+                setIsShowModalResult(true)
+            }
+            else {
+                alert ('wrong')
+            }
+        }
+       
 
     }
     const fetchQuestions = async () => {
@@ -97,6 +129,11 @@ const DetailQuiz = (props) => {
             <div className="right-content">
                 count down
             </div>
+            <ModalResult
+                show={isShowModalResult}
+                setShow={setIsShowModalResult}
+                dataModalResult = {dataModalResult}
+            />
         </div>
     )
 }

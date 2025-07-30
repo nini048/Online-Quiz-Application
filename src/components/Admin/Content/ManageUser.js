@@ -36,7 +36,7 @@ const ManagerUser = (props) => {
     const fetchListUserWithPaginate = async (page) => {
         let res = await getUserWithPaginate(page, LIMIT_USER);
         if (res.EC === 0) {
-          
+
             setListUsers(res.DT.users);
             setPageCount(res.DT.totalPages);
             setCurrentPage(page);
@@ -56,16 +56,16 @@ const ManagerUser = (props) => {
     }
     return (
         <div className="manage-user-container">
-            <div className="title">
+            {/* <div className="title">
                 Manage User
-            </div>
+            </div> */}
             <div className="user-content">
                 <div className="btn-add-new">
                     <button
                         className='btn btn-light'
                         onClick={() => setShowModalCreateUser(true)}
                     >
-                        <FaCirclePlus />
+                        <FaCirclePlus style={{ marginRight: '8px' }} />
                         Add new user
                     </button>
                 </div>

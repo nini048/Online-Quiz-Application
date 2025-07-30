@@ -8,7 +8,7 @@ import { persistor } from '../../redux/store';
 import { doLogout } from '../../redux/action/userAction';
 import default_avatar from '../../assets/default-avatar.png'
 import { useEffect } from 'react';
-const Header = () => {
+const AdminHeader = () => {
     const navigate = useNavigate();
     const isAuthenticated = useSelector(state => state.user.isAuthenticated);
 
@@ -28,20 +28,20 @@ const Header = () => {
         navigate('/')
 
     }
-    const handleSwitchAdmin = () => {
-         navigate('/admin')
+    const handleSwitchUser = () => {
+         navigate('/user');
     }
 
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>
-                <NavLink to='/' className='navbar-brand'>QUIZZZZ</NavLink>
+                <NavLink to='/admin' className='navbar-brand'>QUIZZZZ</NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         {/* <NavLink to='/' className='nav-link'>Home</NavLink> */}
-                        {/* <NavLink to='/user' className='nav-link'>User</NavLink>
-                        <NavLink to='/admin' className='nav-link'>Admin</NavLink> */}
+                        <NavLink to='manager-user' className='nav-link'>Manager User</NavLink>
+                        <NavLink to='manager-quiz' className='nav-link'>Manager Quiz</NavLink>
 
                     </Nav>
 
@@ -73,9 +73,9 @@ const Header = () => {
                                     <div style={{ fontSize: '0.8rem', color: '#999' }}>Role: {account.role}</div>
                                 </NavDropdown.Header>
                                 <NavDropdown.Divider />
-                                {account && account.role === 'ADMIN' &&
-                                    <NavDropdown.Item onClick={handleSwitchAdmin}>Switch: Admin</NavDropdown.Item>}
+                                <NavDropdown.Item onClick={handleSwitchUser}>Switch: User</NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleLogout}>Log out</NavDropdown.Item>
+
                             </NavDropdown>
 
                         }
@@ -88,7 +88,7 @@ const Header = () => {
     );
 }
 
-export default Header;
+export default AdminHeader;
 // import Alert from 'react-bootstrap/Alert';
 
 // const Header = () => {

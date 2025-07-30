@@ -22,6 +22,11 @@ body {
 
 .app-container {
   .header-container {
+    .dropdown-center .dropdown-menu {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+    }
+
     .btn-login {
       height: 40px;
       border-radius: 5px;

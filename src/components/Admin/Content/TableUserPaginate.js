@@ -14,7 +14,7 @@ const TableUserPaginate = (props) => {
 
 
     return (
-        <>
+        <div className="table-container">
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -91,7 +91,7 @@ const TableUserPaginate = (props) => {
             </div>
 
 
-        </>
+        </div>
     )
 }
 export default TableUserPaginate

@@ -11,7 +11,7 @@ const Question = (props) => {
         props.handleCheckbox(answerId, questionId)
     }
 
-    console.log(image_default?.substring(0, 30));
+   
     if (_.isEmpty(data)) {
         return (
             <></>
