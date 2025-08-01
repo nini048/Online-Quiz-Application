@@ -1,6 +1,7 @@
 export const FETCH_USER_LOGIN_SUCCESS = 'FETCH_USER_LOGIN_SUCCESS'
 export const FETCH_USER_LOGOUT_SUCCESS = 'FETCH_USER_LOGOUT_SUCCESS'
 export const FETCH_USER_UPDATE_SUCCESS = 'FETCH_USER_UPDATE_SUCCESS'
+export const SET_USER_ID = 'SET_USER_ID'
 
 export const doLogin = (data) => {
     return {
@@ -20,5 +21,14 @@ export const doUpdate = (data) => {
         payload: data
     }
 }
+
+
+export const setUserId = (id) => {
+    return {
+        type: SET_USER_ID,
+        payload: id
+    }
+}
+
 
 

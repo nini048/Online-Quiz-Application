@@ -1,140 +1,159 @@
-import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router"
-import { getDataQuiz,  postSubmitQuiz } from "../../services/apiServices";
-import './DetailQuiz.scss'
+import { useEffect, useRef, useState } from "react";
+import { useParams, useLocation } from "react-router";
+import {
+    getDataQuiz,
+    postSubmitQuiz,
+    getQuestionByQuizId,
+} from "../../services/apiServices";
+import "./DetailQuiz.scss";
 import _ from "lodash";
 import Question from "./Question";
 import { Modal } from "react-bootstrap";
 import ModalResult from "./ModalResult";
+import TimerContent from "./TimerContent/TimerContent";
+
 const DetailQuiz = (props) => {
+    const refDiv = useRef([]);
     const params = useParams();
     const quizId = params.id;
     const location = useLocation();
     const [dataQuiz, setDataQuiz] = useState([]);
     const [index, setIndex] = useState(0);
     const [isShowModalResult, setIsShowModalResult] = useState(false);
-    const [dataModalResult, setDataModalResult] = useState({})
+    const [dataModalResult, setDataModalResult] = useState({});
+    const setRef = (el, index) => {
+        if (el) {
+            refDiv.current[index] = el;
+        }
+    };
+
+    useEffect(() => {
+        fetchQuestions();
+    }, [quizId]);
+
+
+    const fetchQuestions = async () => {
+        let res = await getQuestionByQuizId(+quizId);
+        if (res && res.EC === 0) {
+            let data = res.DT.qa;
+            const updatedData = data.map((q) => ({
+                ...q,
+                selectedAnswerId: "",
+            }));
+            setDataQuiz(updatedData);
+        }
+    };
 
     const handleCheckbox = (answerId, questionId) => {
-
-
         let dataQuizClone = _.cloneDeep(dataQuiz);
-
-        const index = dataQuizClone.findIndex(item => +item.questionId === +questionId);
-
+        const index = dataQuizClone.findIndex((item) => +item.id === +questionId);
         if (index !== -1) {
             dataQuizClone[index].selectedAnswerId = answerId;
             setDataQuiz(dataQuizClone);
         }
-    }
+    };
+
+    const handleNextBtn = () => {
+        const nextIndex = index + 1;
+        setIndex(nextIndex);
+
+        if (refDiv.current[nextIndex].className === 'right-question') {
+            refDiv.current[nextIndex].className = "right-question clicked";
+        }
+    };
+
+    const handlePrevBtn = () => {
+        const prevIndex = index - 1;
+
+        setIndex(prevIndex);
+
+        if (refDiv.current[prevIndex].className === 'right-question') {
+            refDiv.current[prevIndex].className = "right-question clicked";
+        }
+    };
+
     const handleSubmit = async () => {
         let payload = {
             quizId: +quizId,
             answers: [],
         };
-        let answers = [];
-       
+
         if (dataQuiz && dataQuiz.length > 0) {
-            dataQuiz.forEach(item => {
-                let questionId = item.questionId;
-                let userAnswerId = item.selectedAnswerId;
-                answers.push({
-                    questionId: +questionId,
-                    userAnswerId: userAnswerId
-                })
-            })
+            const answers = dataQuiz.map((item) => ({
+                questionId: +item.id,
+                userAnswerId: item.selectedAnswerId,
+            }));
+
             payload.answers = answers;
-            let res = await  postSubmitQuiz(payload)
-            console.log('res: ', res);
+
+            let res = await postSubmitQuiz(payload);
+            console.log("res: ", res);
             if (res && res.EC === 0) {
                 setDataModalResult({
                     countCorrect: res.DT.countCorrect,
                     countTotal: res.DT.countTotal,
-                    quizData: res.DT.quizData
-                })
-                setIsShowModalResult(true)
-            }
-            else {
-                alert ('wrong')
+                    quizData: res.DT.quizData,
+                });
+                setIsShowModalResult(true);
+            } else {
+                alert("wrong");
             }
         }
-       
+    };
 
-    }
-    const fetchQuestions = async () => {
-        let res = await getDataQuiz(quizId);
-        if (res && res.EC === 0) {
-            let raw = res.DT;
-            let data = _.chain(raw)
-                .groupBy("id")
-                .map((value, key) => {
-                    let answers = [];
-                    let questionDescription, image = null
-                    value.forEach((item, index) => {
-                        if (index === 0) {
-                            questionDescription = item.description;
-                            image = item.image;
-                        }
-
-                        answers.push(item.answers);
-
-                    })
-
-                    return { questionId: key, answers, questionDescription, image, selectedAnswerId: '' }
-
-                })
-                .value()
-            setDataQuiz(data)
-        }
-
-    }
-
-
-    useEffect(() => {
-        fetchQuestions();
-    }, [quizId]);
     return (
         <div className="detail-quiz-container">
             <div className="left-content">
-                <div className="title">
-                    Quiz {quizId}: {location?.state?.quizTitle}
-                </div>
+                <div className="title">{location?.state?.quizTitle}</div>
                 <hr />
 
                 <div className="q-body">
                     <img />
                 </div>
+
                 <Question
                     index={index}
-                    data={
-                        dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
+                    data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
                     handleCheckbox={handleCheckbox}
                 />
-                <div className="footer">
-                    <button className="btn btn-secondary"
-                        onClick={() => { setIndex(index - 1) }}
-                        disabled={index === 0}
-                    >Prev</button>
 
-                    {index === dataQuiz.length - 1 ? (
-                        <button className="btn btn-submit" onClick={handleSubmit}>Submit</button>
-                    ) : (
-                        <button className="btn btn-primary"
-                            onClick={() => { setIndex(index + 1) }}
-                            disabled={index === dataQuiz.length - 1}
-                        >Next</button>
-                    )}
+                <div className="footer">
+                    <button
+                        className="btn btn-secondary"
+                        onClick={handlePrevBtn}
+                        disabled={index === 0}
+                    >
+                        Prev
+                    </button>
+
+                    <button
+                        className="btn btn-primary"
+                        onClick={handleNextBtn}
+                        disabled={index === dataQuiz.length - 1}
+
+                    >
+                        Next
+                    </button>
                 </div>
             </div>
+
             <div className="right-content">
-                count down
+                <TimerContent
+                    dataQuiz={dataQuiz}
+                    handleSubmit={handleSubmit}
+                    setIndex={setIndex}
+                    setRef={setRef}
+                    refDiv={refDiv}
+                />
             </div>
+
             <ModalResult
                 show={isShowModalResult}
                 setShow={setIsShowModalResult}
-                dataModalResult = {dataModalResult}
+                dataModalResult={dataModalResult}
             />
         </div>
-    )
-}
-export default DetailQuiz
+    );
+};
+
+export default DetailQuiz;

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import './Login.scss';
 import { useNavigate } from 'react-router';
-import { postLogin } from '../../services/apiServices';
+import { getAllUsers, postLogin, } from '../../services/apiServices';
 import { toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { doLogin } from '../../redux/action/userAction';
+import { doLogin, setUserId } from '../../redux/action/userAction';
 // import { doLogin } from '../../redux/reducer/userReducer';
+
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Login = (props) => {
+    const [listUsers, setListUsers] = useState([]);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -17,6 +19,14 @@ const Login = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const account = useSelector(state => state.user.account);
+
+    const fetchListUser = async () => {
+        let res = await getAllUsers();
+        if (res.EC === 0) {
+            setListUsers(res.DT);
+        }
+
+    }
 
     useEffect(() => {
         if (account?.role) {
@@ -35,25 +45,41 @@ const Login = (props) => {
         setShowPassword(!showPassword);
 
     }
+    // useEffect(() => {
+    //     if (listUsers.length > 0 && account.email) {
+    //         const currentUser = listUsers.find(user => user.email === account.email);
+    //         if (currentUser?.id) {
+    //             dispatch(setUserId(currentUser.id));
+    //         }
+    //     }
+    // }, [listUsers, account.email]);
+
     const handleLogin = async () => {
         setIsLoading(true);
         let data = await postLogin(email, password);
         console.log('data: ', data);
+
         if (data && data.EC === 0) {
+            // 1. Đăng nhập (set role, email, token,...)
             dispatch(doLogin(data));
-            toast.success('Success!');
 
-            setIsLoading(false);
-
-
-
-
-        } else
-            if (data && +data.EC !== 0) {
-                toast.error(data.EM);
-                setIsLoading(false);
+            // 2. Gọi API lấy danh sách users
+            let res = await getAllUsers();
+            if (res.EC === 0) {
+                const matchedUser = res.DT.find(user => user.email === data.DT.email); // data.DT.email là email người đăng nhập
+                if (matchedUser?.id) {
+                    dispatch(setUserId(matchedUser.id));
+                }
             }
+
+            toast.success('Success!');
+            setIsLoading(false);
+        } else if (data && +data.EC !== 0) {
+            toast.error(data.EM);
+            setIsLoading(false);
+        }
     }
+
     return (
         <div className="login-container">
             <div className="header">

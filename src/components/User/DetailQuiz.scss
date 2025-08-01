@@ -35,7 +35,7 @@
                 color: #333;
                 border: 1px solid #ccc;
                 width: 80px;
-                padding: 8px ;
+                padding: 8px;
                 border-radius: 6px;
                 font-weight: 500;
                 transition: all 0.2s ease;
@@ -47,13 +47,13 @@
             }
 
             .btn-submit {
-                background-color: #333; 
-                color: #fff; 
+                background-color: #333;
+                color: #fff;
                 font-weight: 500;
                 transition: all 0.2s ease;
 
                 &:hover {
-                    background-color: #555; 
+                    background-color: #555;
                 }
             }
 
@@ -63,8 +63,106 @@
     }
 
     .right-content {
-        border: #333 1px solid;
-        border-radius: 15px;
+        // border: #333 1px solid;
+        // border-radius: 15px;
         width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+
+        .main-timer {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .main-question {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .right-question {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            //  background-color: #f9f9f9;
+            border-radius: 50%;
+            height: 35px;
+            width: 35px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: #f0f0f0;
+                border-color: #999;
+            }
+
+            &.selected {
+                background-color: #333;
+                color: #fff;
+                border-color: #333;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: #444;
+                    border-color: #555;
+                    color: #fff;
+                }
+
+            }
+
+
+            &.answered {
+                background-color: #4caf50;
+                color: #fff;
+                border-color: #4caf50;
+            }
+
+            &.clicked {
+                background-color: #fff;
+                color: #f48fb1;
+                border: 2px solid #f48fb1;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: #fce4ec;
+                    color: #ad1457;
+                    border-color: #ad1457;
+                }
+            }
+
+            &.not-answered {
+                border: 2px solid red;
+                color: red;
+            }
+
+            &.disabled {
+                background-color: #eee;
+                color: #aaa;
+                border-color: #ddd;
+                cursor: not-allowed;
+
+
+                &:hover {
+                    background-color: #eee;
+                    border-color: #ddd;
+                }
+            }
+
+        }
+
+        .btn-submit-container {
+            margin-top: 40px;
+
+
+        }
+
     }
 }

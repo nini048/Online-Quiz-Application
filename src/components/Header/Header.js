@@ -40,7 +40,7 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <NavLink to='user/quiz' className='nav-link'>Quiz</NavLink>
-                        <NavLink to='user/manager-quiz' className='nav-link'>Create Quiz</NavLink>
+                        <NavLink to='user/manager-quiz' className='nav-link'>Manager Quiz</NavLink>
 
                     </Nav>
 

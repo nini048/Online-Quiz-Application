@@ -3,6 +3,7 @@ import "./Question.scss";
 import image_default from './defaultImage.jpeg'
 const Question = (props) => {
     const { data, index } = props;
+   
     const getLabelLetter = (i) => {
         return String.fromCharCode(65 + i);
     };
@@ -21,13 +22,13 @@ const Question = (props) => {
         <>
 
             <div className="q-image">
-                <img src={data.image
-                    ? `data:image/jpeg;base64,${data.image}`
+                <img src={data.imageFile
+                    ? `data:image/jpeg;base64,${data.imageFile}`
                     : image_default}
                 />
             </div>
 
-            <div className="question">Question {index + 1}: {data.questionDescription}?</div>
+            <div className="question">Question {index + 1}: {data.description}?</div>
             <div className="answer-list">
                 {data.answers &&
                     data.answers.length > 0 &&
@@ -37,7 +38,7 @@ const Question = (props) => {
                                 type="radio"
                                 name={`question-${index}`}
                                 checked={+data.selectedAnswerId === +a.id}
-                                onChange={(event) => handleCheckbox(event, a.id, data.questionId)} />
+                                onChange={(event) => handleCheckbox(event, a.id, data.id)} />
                             <span className="custom-radio">{getLabelLetter(i)}</span>
                             <span className="answer-text">{a.description}</span>
                         </label>

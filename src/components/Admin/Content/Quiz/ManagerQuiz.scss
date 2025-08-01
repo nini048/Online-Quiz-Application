@@ -1,7 +1,7 @@
 .quiz-container {
     padding: 15px;
-  margin: 10px auto;
-  max-width: 1200px;
+    margin: 10px auto;
+    max-width: 1200px;
 
 
     .layout {
@@ -11,7 +11,12 @@
 
         .left-column {
             flex: 1;
-            min-width: 300px;
+
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            overflow-y: auto;
+            // max-height: 90vh;
         }
 
         // .right-column {
@@ -78,14 +83,43 @@
 
     .right-column {
         flex: 1;
-        padding: 0 20px;
-        margin-left: 80px;
+
+        overflow-y: auto;
+
+        padding: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        overflow-y: auto;
+        max-height: 80vh;
+
+
+        // mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+        // -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &::before {
+            top: 0;
+            box-shadow: inset 0 5px 10px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        &::after {
+            bottom: 0;
+            box-shadow: inset 0 -5px 10px -5px rgba(0, 0, 0, 0.05);
+        }
+
+
     }
+
+
 
     .quiz-card-list {
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
+        margin: 10px 0;
     }
 
     .quiz-card {
@@ -98,13 +132,29 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-         width: calc(50% - 10px);
-          height: 100%;
-          &:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-  transition: all 0.2s ease;
-}
+        width: calc(50% - 10px);
+        height: 100%;
+        transition: box-shadow 0.3s ease;
+
+        &:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+            transition: all 0.2s ease;
+        }
+
+
+
+        &.active-edit {
+            border: 1.5px solid #f5aae6;
+            // background-color: #f0f6ff;
+            box-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+        }
+
+
+
+
 
     }
 

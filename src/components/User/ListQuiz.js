@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react"
-import { getQuizByUser } from "../../services/apiServices";
+import { getAllQuiz, getQuizByUser, getQuizByUserId } from "../../services/apiServices";
 import './ListQuiz.scss'
 import { useNavigate } from "react-router";
+import { useStateManager } from "react-select";
+import { useSelector } from "react-redux";
+
 
 const ListQuiz = (props) => {
     const navigate = useNavigate();
     const [arrQiz, setArrQuiz] = useState([]);
+
+    const userId = useSelector(state => state.user.account.id);
+    console.log('userId: ', userId);
 
     useEffect(() => {
         getQuizData();
     }, [])
     const getQuizData = async () => {
 
-        const res = await getQuizByUser();
-    
+        const res = await getAllQuiz();
+
         if (res && res.EC === 0) {
             setArrQuiz(res.DT);
         }
@@ -26,9 +32,13 @@ const ListQuiz = (props) => {
                     <div key={`${index}-quiz`} className="quiz-card" style={{ width: "18rem" }}>
                         <img src={`data:image/jpeg;base64,${quiz.image}`} className="card-img-top" alt="..." />
                         <div className="card-body">
-                            <h5 className="card-title">Quiz {index + 1}</h5>
+                            <h5 className="card-title">{quiz.name}</h5>
+                         
                             <p className="card-text">{quiz.description}</p>
-                            <button className="btn-start"
+                            <span className="quiz-level">Level: {quiz.difficulty}</span>
+
+                         
+                            <button className="btn-start btn btn-outline-secondary"
                                 onClick={() => navigate(
                                     `${quiz.id}`,
                                     { state: { quizTitle: quiz.description } }

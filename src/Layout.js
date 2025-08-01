@@ -12,6 +12,8 @@ import Register from './components/Auth/Register';
 import ListQuiz from './components/User/ListQuiz';
 import DetailQuiz from './components/User/DetailQuiz';
 import ManagerQuiz from './components/Admin/Content/Quiz/ManagerQuiz';
+import Question from './components/User/Question';
+import Questions from './components/Admin/Content/Questions/Questions';
 
 const NotFound = () => {
     return (
@@ -28,6 +30,9 @@ const Layout = (props) => {
                         <Route path="quiz" element={<ListQuiz />} />
                         <Route path="manager-quiz" element={<ManagerQuiz />} />
                         <Route path="quiz/:id" element={<DetailQuiz />} />
+                       <Route path="manager-questions/:quizId" element={<Questions />} />
+
+               
 
                     </Route>
 
@@ -45,6 +50,7 @@ const Layout = (props) => {
             <ToastContainer
                 position="bottom-right"
                 autoClose={3000}
+
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={false}
