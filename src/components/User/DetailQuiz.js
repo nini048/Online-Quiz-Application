@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation } from "react-router";
 import {
-    getDataQuiz,
     postSubmitQuiz,
     getQuestionByQuizId,
 } from "../../services/apiServices";
@@ -14,13 +13,20 @@ import TimerContent from "./TimerContent/TimerContent";
 
 const DetailQuiz = (props) => {
     const refDiv = useRef([]);
+
     const params = useParams();
     const quizId = params.id;
     const location = useLocation();
     const [dataQuiz, setDataQuiz] = useState([]);
     const [index, setIndex] = useState(0);
-    const [isShowModalResult, setIsShowModalResult] = useState(false);
+    const [isShowModalResult, setShowModalResult] = useState(false);
     const [dataModalResult, setDataModalResult] = useState({});
+    const [resultQuiz, setResultQuiz] = useState([])
+    const [isSubmit, setIsSubmit] = useState(false)
+    const [countCorrect, setCountCorrect] = useState('')
+    const [showModalSubmit, setShowModalSubmit] = useState(false);
+    const [countTotal, setCountTotal] = useState('')
+    const [isRestart, setIsRestart] = useState(false)
     const setRef = (el, index) => {
         if (el) {
             refDiv.current[index] = el;
@@ -32,8 +38,22 @@ const DetailQuiz = (props) => {
     }, [quizId]);
 
 
+    const handleResetQuiz = () => {
+
+        setDataQuiz([])
+        setIndex(0)
+        setIsSubmit(false)
+        fetchQuestions()
+        setCountCorrect('')
+        setCountTotal('')
+        setResultQuiz([])
+        fetchQuestions()
+        setIsRestart(true)
+    }
+
     const fetchQuestions = async () => {
         let res = await getQuestionByQuizId(+quizId);
+
         if (res && res.EC === 0) {
             let data = res.DT.qa;
             const updatedData = data.map((q) => ({
@@ -73,28 +93,49 @@ const DetailQuiz = (props) => {
     };
 
     const handleSubmit = async () => {
+        setIsSubmit(true);
+        setShowModalSubmit(false)
         let payload = {
             quizId: +quizId,
             answers: [],
         };
 
+
         if (dataQuiz && dataQuiz.length > 0) {
+
             const answers = dataQuiz.map((item) => ({
                 questionId: +item.id,
-                userAnswerId: item.selectedAnswerId,
+                userAnswerId: Array.isArray(item.selectedAnswerId)
+                    ? item.selectedAnswerId
+                    : [item.selectedAnswerId],
             }));
 
             payload.answers = answers;
 
+
             let res = await postSubmitQuiz(payload);
-            console.log("res: ", res);
+
+
             if (res && res.EC === 0) {
-                setDataModalResult({
-                    countCorrect: res.DT.countCorrect,
-                    countTotal: res.DT.countTotal,
-                    quizData: res.DT.quizData,
+                const serverData = res.DT.quizData;
+                setCountTotal(res.DT.countTotal)
+                setCountCorrect(res.DT.countCorrect)
+
+                setResultQuiz(serverData)
+                serverData.forEach((data, index) => {
+                    const isEmptyAnswer = !data.userAnswers
+                        || data.userAnswers.length === 0
+                        || data.userAnswers.every(ans => typeof ans === 'string'
+                            && ans.trim() === '');
+                    if (data.isCorrect === true) {
+                        refDiv.current[index].className = "right-question corrected";
+                    } else if (data.isCorrect === false && !isEmptyAnswer) {
+                        refDiv.current[index].className = "right-question wrong";
+                    } else if (isEmptyAnswer) {
+                        refDiv.current[index].className = "right-question not-answered";
+                    }
                 });
-                setIsShowModalResult(true);
+
             } else {
                 alert("wrong");
             }
@@ -115,6 +156,8 @@ const DetailQuiz = (props) => {
                     index={index}
                     data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
                     handleCheckbox={handleCheckbox}
+                    isSubmit={isSubmit}
+                    resultQuiz={resultQuiz}
                 />
 
                 <div className="footer">
@@ -144,12 +187,21 @@ const DetailQuiz = (props) => {
                     setIndex={setIndex}
                     setRef={setRef}
                     refDiv={refDiv}
+                    isSubmit={isSubmit}
+                    resultQuiz={resultQuiz}
+                    countCorrect={countCorrect}
+                    countTotal={countTotal}
+                    setIsSubmit={setIsSubmit}
+                    showModalSubmit={showModalSubmit}
+                    setShowModalSubmit={setShowModalSubmit}
+                    handleResetQuiz={handleResetQuiz}
+                    isRestart = {isRestart}
                 />
             </div>
 
             <ModalResult
                 show={isShowModalResult}
-                setShow={setIsShowModalResult}
+                setShow={setShowModalResult}
                 dataModalResult={dataModalResult}
             />
         </div>

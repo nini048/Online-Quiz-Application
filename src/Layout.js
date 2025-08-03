@@ -14,6 +14,7 @@ import DetailQuiz from './components/User/DetailQuiz';
 import ManagerQuiz from './components/Admin/Content/Quiz/ManagerQuiz';
 import Question from './components/User/Question';
 import Questions from './components/Admin/Content/Questions/Questions';
+import PrivateRoute from './routes/PrivateRoute';
 
 const NotFound = () => {
     return (
@@ -27,17 +28,26 @@ const Layout = (props) => {
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
                     <Route path="/user" element={<User />} >
-                        <Route path="quiz" element={<ListQuiz />} />
-                        <Route path="manager-quiz" element={<ManagerQuiz />} />
+                        <Route path="quiz" element={
+                            <PrivateRoute>
+                                <ListQuiz />
+                            </PrivateRoute>
+                        } />
+                        <Route path="manager-quiz" element={
+                            <PrivateRoute>
+                                <ManagerQuiz />
+                            </PrivateRoute>
+                        } />
                         <Route path="quiz/:id" element={<DetailQuiz />} />
-                       <Route path="manager-questions/:quizId" element={<Questions />} />
-
-               
-
+                        <Route path="manager-questions/:quizId" element={<Questions />} />
                     </Route>
 
                 </Route>
-                <Route path="/admin" element={<Admin />}>
+                <Route path="/admin" element={
+                    <PrivateRoute adminOnly = {true}>
+                        <Admin />
+                    </PrivateRoute>
+                }>
                     <Route index element={<DashBoard />} />
                     <Route path="manager-user" element={<ManagerUser />} />
 
@@ -45,6 +55,7 @@ const Layout = (props) => {
 
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <ToastContainer

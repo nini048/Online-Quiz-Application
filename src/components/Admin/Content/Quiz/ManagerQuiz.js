@@ -3,7 +3,7 @@ import './ManagerQuiz.scss';
 import defaul_image from '../../../../assets/default-avatar.png'
 import Select from 'react-select';
 import { FaCirclePlus } from "react-icons/fa6";
-import { deleteQuiz, getAllQuiz, postCreateNewQuiz, putUpdateQuiz, postQuizToUser } from '../../../../services/apiServices';
+import { deleteQuiz, getAllQuiz, postCreateNewQuiz, putUpdateQuiz, postQuizToUser, getQuizByUser } from '../../../../services/apiServices';
 import { toast } from 'react-toastify';
 import ModalDeleteQuiz from './ModalDeleteQuiz';
 import { useNavigate } from 'react-router';
@@ -25,7 +25,7 @@ const ManagerQuiz = (props) => {
     const [previewImage, setPreviewImage] = useState('');
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
-    const [description, setDescription] = useState();
+    const [description, setDescription] = useState('');
     const [level, setLevel] = useState('');
     const [listQuiz, setListQuiz] = useState([]);
     const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false);
@@ -38,12 +38,14 @@ const ManagerQuiz = (props) => {
     const [selectedLevel, setSelectedLevel] = useState({})
     const navigate = useNavigate();
     const account = useSelector(state => state.user.account);
+    const [newImage, setNewImage] = useState(null);
 
 
 
 
 
-    
+
+
 
 
 
@@ -51,29 +53,22 @@ const ManagerQuiz = (props) => {
     useEffect(() => {
         fetchQuiz();
     }, [])
-    // useEffect(() => {
-    //     const handlePostQuiz = async () => {
-    //         const send = await postQuizToUser(submitNewId, userId);
-    //         console.log('send: ', send);
-    //     };
-    //     handlePostQuiz();
-    // }, [isSubmit === true]);
 
 
     const fetchQuiz = async () => {
-        let res = await getAllQuiz();
-  
+        let res = await getQuizByUser()
+
         if (res && res.EC === 0) {
             setListQuiz(res.DT);
         }
     }
-  
+
 
 
     const handleUploadImage = (event) => {
         if (event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
-            setImage(event.target.files[0]);
+            setNewImage(event.target.files[0]);
         }
         else {
             // setPreviewImage('');
@@ -85,15 +80,17 @@ const ManagerQuiz = (props) => {
             return;
         }
 
-        let res = await postCreateNewQuiz(name, description, level, image);
+        let res = await postCreateNewQuiz(name, description, level, newImage);
+        console.log('image: ', image);
 
         if (res && res.EC === 0) {
             toast.success(res.EM);
             const newQuizId = res.DT.id;
-          
+
             if (newQuizId && userId) {
                 const send = await postQuizToUser(newQuizId, userId);
-           
+
+
             }
 
             setName('');
@@ -120,6 +117,7 @@ const ManagerQuiz = (props) => {
         setPreviewImage(`data:image/jpeg;base64,${quiz.image}`);
         setActiveEditId(quiz.id);
         setSelectedLevel(options.find(option => option.value === quiz.difficulty))
+        setNewImage(null);
 
 
     }
@@ -139,7 +137,14 @@ const ManagerQuiz = (props) => {
         // fetchQuiz();
     }
     const handleUpdate = async () => {
-        let data = await putUpdateQuiz(activeEditId, description, name, level, image)
+        let data = await putUpdateQuiz(
+            activeEditId,
+            description,
+            name,
+            level,
+            newImage ? newImage : image
+        );
+
 
         if (data && data.EC === 0) {
             toast.success('successful!!');

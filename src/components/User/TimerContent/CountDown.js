@@ -1,24 +1,42 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const CountDown = (props) => {
-    const [count, setCount] = useState(50000);
-    const { onTimeUp } = props;
+    const [count, setCount] = useState(60);
+    const { onTimeUp, isSubmit, isRestart, } = props;
+    const timerRef = useRef(null);
+    const startTimer = () => {
+        clearInterval(timerRef.current);
+        timerRef.current = setInterval(() => {
+            setCount(prev => {
+                if (prev <= 1) {
+                    clearInterval(timerRef.current);
+                    onTimeUp();
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+    };
     useEffect(() => {
-        if (count === 0) {
-            onTimeUp();
+        if (isSubmit) {
+            clearInterval(timerRef.current);
             return;
         }
-        const timer = setInterval(() => {
-            setCount(count - 1)
-        }, 1000);
-        // setTimeout(() => {
-        //     clearInterval(timer)
-        // }, 1000)
-        return () => {
-            clearInterval(timer);
+
+        if (isRestart) {
+            clearInterval(timerRef.current);
+            setCount(60);        
+            startTimer();          
+            return;
         }
 
-    }, [count])
+        startTimer();             
+        return () => {
+            clearInterval(timerRef.current);
+        };
+    }, [isSubmit, isRestart, onTimeUp]);
+
+
     const formatTime = (seconds) => {
         const min = String(Math.floor(seconds / 60)).padStart(2, '0');
         const sec = String(seconds % 60).padStart(2, '0');

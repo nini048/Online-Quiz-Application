@@ -1,9 +1,13 @@
 import CountDown from "./CountDown";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import ModalSubmit from "./ModalSubmit";
 const TimerContent = (props) => {
 
-    const { dataQuiz, refDiv, setRef } = props;
+    const { dataQuiz, refDiv, setRef, isSubmit, countCorrect, countTotal,
+        setIsSubmit, handleSubmit, showModalSubmit, setShowModalSubmit,
+        handleResetQuiz, isRestart } = props;
 
+   
     const onTimeUp = () => {
         props.handleSubmit();
     }
@@ -42,6 +46,8 @@ const TimerContent = (props) => {
             <div className="main-timer">
                 <CountDown
                     onTimeUp={onTimeUp}
+                    isSubmit={isSubmit}
+                    isRestart = {isRestart}
                 />
             </div>
             <div className="main-question">
@@ -62,9 +68,48 @@ const TimerContent = (props) => {
 
             </div>
             <div className="btn-submit-container">
-                <button className="btn btn-secondary" onClick={() => props.handleSubmit()}>Submit</button>
+                <button className="btn btn-secondary"
+                    onClick={ !isSubmit 
+                        ? () => { setShowModalSubmit(true) }
+                        : () => {handleResetQuiz()}
+                    }
+                >{!isSubmit ? 'Submit' : 'Restart'}</button>
 
             </div>
+            <div className="result-content">
+                {isSubmit && (
+                    <div className="result-summary">
+                        <span className="correct-count">Correct: {countCorrect}</span>
+                        <span className="total-count"> / {countTotal}</span>
+                    </div>
+                )}
+            </div>
+            {isSubmit && (
+                <div className="progress-bar-container">
+                    <div className="progress-bar-background">
+                        <div
+                            className="progress-bar-fill"
+                            style={{
+                                width: `${Math.round((countCorrect / countTotal) * 100)}%`,
+                            }}
+                        ></div>
+                    </div>
+                    <div className="progress-label">
+                        {Math.round((countCorrect / countTotal) * 100)}%
+                    </div>
+                </div>
+            )}
+            <ModalSubmit
+                show={showModalSubmit}
+                setShow={setShowModalSubmit}
+                isSubmit={isSubmit}
+                setIsSubmit={setIsSubmit}
+                handleSubmit = {handleSubmit}
+            />
+
+
+
+
         </>
     );
 };
