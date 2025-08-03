@@ -15,6 +15,7 @@ import ManagerQuiz from './components/Admin/Content/Quiz/ManagerQuiz';
 import Question from './components/User/Question';
 import Questions from './components/Admin/Content/Questions/Questions';
 import PrivateRoute from './routes/PrivateRoute';
+import ForgotPassword from './components/Auth/ForgotPassword';
 
 const NotFound = () => {
     return (
@@ -53,8 +54,10 @@ const Layout = (props) => {
 
                 </Route>
 
-                <Route path="/login" element={<Login />} />
+           
                 <Route path="/register" element={<Register />} />
+                     <Route path="/login" element={<Login />} />
+                 <Route path="/forgot-password" element={<ForgotPassword />} />
 
                 <Route path="*" element={<NotFound />} />
             </Routes>

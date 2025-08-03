@@ -1,3 +1,4 @@
+import { current } from "@reduxjs/toolkit";
 import axios from "../utils/axiosCustomize"
 
 const postCreateNewUser = (email, password, username, role, image) => {
@@ -125,7 +126,7 @@ const postUpsertQA = (data) => {
 const getQuestionByQuizId = (quizId) => {
     return axios.get(`/api/v1/quiz-with-qa/${quizId}`)
 }
-
+const postChangePassword = (current)
 export {
     postCreateNewUser, getAllUsers, putUpdateUser, deleteUser,
     getUserWithPaginate, postLogin, postRegister, getQuizByUser,

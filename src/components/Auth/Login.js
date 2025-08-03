@@ -45,6 +45,9 @@ const Login = (props) => {
         setShowPassword(!showPassword);
 
     }
+    const handleForgotPassword = (email) => {
+        navigate ('/forgot-password', {state: {email}})
+    }
     // useEffect(() => {
     //     if (listUsers.length > 0 && account.email) {
     //         const currentUser = listUsers.find(user => user.email === account.email);
@@ -115,7 +118,9 @@ const Login = (props) => {
                             </span>
                         </div>
                     </div>
-                    <span className='forgot-password'>Forgot password?</span>
+                    <span className='forgot-password'
+                        onClick={() => { handleForgotPassword() }}
+                    >Forgot password?</span>
                     <div>
                         <button
                             className='btn-submit'
