@@ -15,7 +15,8 @@ import ManagerQuiz from './components/Admin/Content/Quiz/ManagerQuiz';
 import Question from './components/User/Question';
 import Questions from './components/Admin/Content/Questions/Questions';
 import PrivateRoute from './routes/PrivateRoute';
-import ForgotPassword from './components/Auth/ForgotPassword';
+import History from './components/User/History';
+
 
 const NotFound = () => {
     return (
@@ -28,16 +29,25 @@ const Layout = (props) => {
             <Routes>
                 <Route path="/" element={<App />}>
                     <Route index element={<HomePage />} />
-                    <Route path="/user" element={<User />} >
+                    <Route path="/user" element={
+                        <PrivateRoute>
+                            <User />
+                        </PrivateRoute>}
+                    >
                         <Route path="quiz" element={
-                            <PrivateRoute>
-                                <ListQuiz />
-                            </PrivateRoute>
+
+                            <ListQuiz />
+
                         } />
                         <Route path="manager-quiz" element={
-                            <PrivateRoute>
-                                <ManagerQuiz />
-                            </PrivateRoute>
+
+                            <ManagerQuiz />
+
+                        } />
+                        <Route path="history" element={
+
+                            <History />
+
                         } />
                         <Route path="quiz/:id" element={<DetailQuiz />} />
                         <Route path="manager-questions/:quizId" element={<Questions />} />
@@ -45,7 +55,7 @@ const Layout = (props) => {
 
                 </Route>
                 <Route path="/admin" element={
-                    <PrivateRoute adminOnly = {true}>
+                    <PrivateRoute adminOnly={true}>
                         <Admin />
                     </PrivateRoute>
                 }>
@@ -54,10 +64,10 @@ const Layout = (props) => {
 
                 </Route>
 
-           
+
                 <Route path="/register" element={<Register />} />
-                     <Route path="/login" element={<Login />} />
-                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/login" element={<Login />} />
+
 
                 <Route path="*" element={<NotFound />} />
             </Routes>

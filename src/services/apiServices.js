@@ -126,7 +126,9 @@ const postUpsertQA = (data) => {
 const getQuestionByQuizId = (quizId) => {
     return axios.get(`/api/v1/quiz-with-qa/${quizId}`)
 }
-const postChangePassword = (current)
+const getHistory = () => {
+    return axios.get('/api/v1/history');
+}
 export {
     postCreateNewUser, getAllUsers, putUpdateUser, deleteUser,
     getUserWithPaginate, postLogin, postRegister, getQuizByUser,
@@ -134,5 +136,5 @@ export {
     deleteQuiz, putUpdateQuiz, postNewQuestion, postNewAnswer,
     getAllQuestionInQuiz, putUpdateQuestion, putUpdateAnswer,
     postQuizToUser, deleteQuestion, deleteAnswer, postUpsertQA,
-    getQuestionByQuizId
+    getQuestionByQuizId, getHistory
 } 

@@ -29,7 +29,10 @@ const Header = () => {
 
     }
     const handleSwitchAdmin = () => {
-         navigate('/admin/manager-user')
+        navigate('/admin/manager-user')
+    }
+    const handleHistory = () => {
+         navigate('/user/history')
     }
 
     return (
@@ -41,6 +44,8 @@ const Header = () => {
                     <Nav className="me-auto">
                         <NavLink to='user/quiz' className='nav-link'>Quiz</NavLink>
                         <NavLink to='user/manager-quiz' className='nav-link'>Manager Quiz</NavLink>
+
+
 
                     </Nav>
 
@@ -74,6 +79,7 @@ const Header = () => {
                                 <NavDropdown.Divider />
                                 {account && account.role === 'ADMIN' &&
                                     <NavDropdown.Item onClick={handleSwitchAdmin}>Switch: Admin</NavDropdown.Item>}
+                                <NavDropdown.Item onClick={handleHistory}>History</NavDropdown.Item>
                                 <NavDropdown.Item onClick={handleLogout}>Log out</NavDropdown.Item>
                             </NavDropdown>
 
