@@ -7,13 +7,12 @@ import {
 import "./DetailQuiz.scss";
 import _ from "lodash";
 import Question from "./Question";
-import { Modal } from "react-bootstrap";
+import { usePrompt } from "../../utils/usePrompt";
 import ModalResult from "./ModalResult";
 import TimerContent from "./TimerContent/TimerContent";
 
 const DetailQuiz = (props) => {
     const refDiv = useRef([]);
-
     const params = useParams();
     const quizId = params.id;
     const location = useLocation();
@@ -27,6 +26,8 @@ const DetailQuiz = (props) => {
     const [showModalSubmit, setShowModalSubmit] = useState(false);
     const [countTotal, setCountTotal] = useState('')
     const [isRestart, setIsRestart] = useState(false)
+    const [isBlocking, setIsBlocking] = useState(true);
+
     const setRef = (el, index) => {
         if (el) {
             refDiv.current[index] = el;
@@ -36,6 +37,24 @@ const DetailQuiz = (props) => {
     useEffect(() => {
         fetchQuestions();
     }, [quizId]);
+    // useEffect(() => {
+    //     const handleBeforeUnload = (event) => {
+    //         if (!isSubmit) {
+    //             event.preventDefault();
+    //             event.returnValue = "";
+    //         }
+    //     };
+
+    //     window.addEventListener("beforeunload", handleBeforeUnload);
+
+    //     return () => {
+    //         window.removeEventListener("beforeunload", handleBeforeUnload);
+    //     };
+    // }, [isSubmit]);
+
+   usePrompt("Bạn có chắc muốn rời khỏi trang này?", isBlocking);
+
+
 
 
     const handleResetQuiz = () => {
@@ -195,7 +214,7 @@ const DetailQuiz = (props) => {
                     showModalSubmit={showModalSubmit}
                     setShowModalSubmit={setShowModalSubmit}
                     handleResetQuiz={handleResetQuiz}
-                    isRestart = {isRestart}
+                    isRestart={isRestart}
                 />
             </div>
 

@@ -11,7 +11,7 @@ const ListQuiz = (props) => {
     const [arrQiz, setArrQuiz] = useState([]);
 
     const userId = useSelector(state => state.user.account.id);
-    console.log('userId: ', userId);
+   
 
     useEffect(() => {
         getQuizData();

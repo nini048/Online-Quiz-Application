@@ -3,7 +3,7 @@ import "./Question.scss";
 import image_default from './defaultImage.jpeg'
 const Question = (props) => {
     const { data, index, isSubmit, resultQuiz } = props;
-    console.log('resultQuiz: ', resultQuiz);
+  
 
     const getLabelLetter = (i) => {
         return String.fromCharCode(65 + i);
