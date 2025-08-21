@@ -1,0 +1,141 @@
+.q-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  img {
+    max-width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.question {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.answer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 1rem;
+}
+
+.answer-option {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 0.3rem 1rem;
+  border-radius: 8px;
+
+  input[type='radio'] {
+    display: none;
+
+    &:disabled + .custom-radio {
+      background-color: #e0e0e0;
+      border-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    &:disabled + .custom-radio + .answer-text {
+      cursor: not-allowed;
+    }
+
+    &:checked + .custom-radio {
+      background-color: #333;
+      color: #fff;
+      border-color: #333;
+    }
+
+    &:checked + .custom-radio + .answer-text {
+      font-weight: 600;
+      color: #000;
+    }
+  }
+
+  .custom-radio {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    margin-right: 12px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .answer-text {
+    flex: 1;
+    transition: color 0.3s ease;
+  }
+
+  &:hover {
+    .custom-radio {
+      background-color: #f0f0f0;
+      border-color: #666;
+    }
+  }
+
+  // Khi trả lời đúng
+  &.correct {
+    background-color: #e6f4ea;
+
+    .custom-radio {
+      background-color: #d4edda;
+      border-color: #28a745;
+      color: #28a745;
+    }
+
+    .answer-text {
+      color: #28a745;
+      font-weight: 600;
+    }
+  }
+
+  // Khi trả lời sai
+  &.wrong {
+    background-color: #fbeaea;
+
+    .custom-radio {
+      background-color: #f8d7da;
+      border-color: #dc3545;
+      color: #dc3545;
+    }
+
+    .answer-text {
+      color: #dc3545;
+      font-weight: 600;
+    }
+  }
+
+  // Khi bị bỏ lỡ
+  &.missed {
+    background-color: #fff9e6;
+
+    .custom-radio {
+      background-color: #fff3cd;
+      border-color: #ffc107;
+      color: #856404;
+    }
+
+    .answer-text {
+      color: #856404;
+      font-style: italic;
+    }
+  }
+}

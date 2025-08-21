@@ -1,0 +1,249 @@
+.detail-quiz-container {
+    display: flex;
+    gap: 20px;
+    padding: 50px 80px;
+
+    .left-content {
+        padding: 35px 50px;
+        border: #333 1px solid;
+        border-radius: 15px;
+        min-height: 750px;
+        width: 80%;
+
+
+
+
+        .title {
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        .q-content {
+            .question {
+                font-size: 20px;
+                font-weight: 600;
+            }
+        }
+
+        .footer {
+            margin-top: 10px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+
+            .btn {
+                background-color: transparent;
+                color: #333;
+                border: 1px solid #ccc;
+                width: 80px;
+                padding: 8px;
+                border-radius: 6px;
+                font-weight: 500;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: #f2f2f2;
+                    border-color: #999;
+                }
+            }
+
+            .btn-submit {
+                background-color: #333;
+                color: #fff;
+                font-weight: 500;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background-color: #555;
+                }
+            }
+
+
+        }
+
+    }
+
+    .right-content {
+        // border: #333 1px solid;
+        // border-radius: 15px;
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+
+        .main-timer {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .main-question {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .right-question {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ccc;
+            //  background-color: #f9f9f9;
+            border-radius: 50%;
+            height: 35px;
+            width: 35px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background-color: #f0f0f0;
+                border-color: #999;
+            }
+
+            &.selected {
+                background-color: #333;
+                color: #fff;
+                border-color: #333;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: #444;
+                    border-color: #555;
+                    color: #fff;
+                }
+
+            }
+
+
+            &.corrected {
+                background-color: #d1e7dd;
+                color: #0f5132;
+                border: 2px solid #badbcc;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: #c7dbcf;
+                    color: #0a3622;
+                    border-color: #a3c2b6;
+                }
+            }
+
+            &.wrong {
+                background-color: #f8d7da;
+                color: #842029; // đỏ đậm
+                border: 2px solid #f5c2c7;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: #f1c7cb;
+                    color: #6c1e25;
+                    border-color: #d88b95;
+                }
+            }
+
+            &.clicked {
+                background-color: #fff;
+                color: #f48fb1;
+                border: 2px solid #f48fb1;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background-color: #fce4ec;
+                    color: #ad1457;
+                    border-color: #ad1457;
+                }
+            }
+
+
+
+
+            &.not-answered {
+                background-color: #f9f9f9;
+                color: #999;
+                border: 1px dashed #bbb;
+                font-style: italic;
+
+
+                &:hover {
+                    background-color: #f9f9f9;
+                    border-color: #bbb;
+                }
+            }
+
+
+            &.disabled {
+                background-color: #eee;
+                color: #aaa;
+                border-color: #ddd;
+                cursor: not-allowed;
+
+
+                &:hover {
+                    background-color: #eee;
+                    border-color: #ddd;
+                }
+            }
+
+        }
+
+        .btn-submit-container {
+            margin-top: 40px;
+
+
+        }
+
+        .result-summary {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+
+            .correct-count {
+                color: #e91e63; // hồng đậm
+            }
+
+            .total-count {
+                color: #333;
+            }
+        }
+
+        .progress-bar-container {
+            width: 80%;
+            margin: 20px auto 0;
+            text-align: center;
+
+            .progress-bar-background {
+                height: 12px;
+                width: 100%;
+                background-color: #f8d9e0; // nền hồng nhạt
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .progress-bar-fill {
+                height: 100%;
+                background-color: #e91e63; // hồng đậm
+                border-radius: 10px 0 0 10px;
+                transition: width 0.4s ease-in-out;
+            }
+
+            .progress-label {
+                margin-top: 6px;
+                font-size: 13px;
+                font-weight: 500;
+                color: #555;
+            }
+        }
+
+
+
+
+    }
+
+}
