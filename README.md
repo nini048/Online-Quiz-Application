@@ -43,16 +43,16 @@ Online-Quiz-Application/
 ## Screenshots
 
 ### Quiz Page
-![Quiz Page](screenshots/quiz-page.png)
+![Quiz Page](public/screenshots/quiz-page.png)
 
 ### Confirm Submit
-![Confirm Submit](screenshots/confirm-submit.png)
+![Confirm Submit](public/screenshots/confirm-submit.png)
 
 ### Result Page
-![Result Page](screenshots/result-page.png)
+![Result Page](public/screenshots/result-page.png)
 
 ### Mânge Questions
-![Manage Questions](screenshots/manage-questions.png)
+![Manage Questions](public/screenshots/manage-questions.png)
 
 ### Manage Quiz
-![Manage Quiz](screenshots/manage-quiz.png)
+![Manage Quiz](public/screenshots/manage-quiz.png)
