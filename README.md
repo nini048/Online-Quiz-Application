@@ -40,19 +40,3 @@ Online-Quiz-Application/
 └── package-lock.json
 ```
 
-## Screenshots
-
-### Quiz Page
-![Quiz Page](public/screenshots/quiz-page.png)
-
-### Confirm Submit
-![Confirm Submit](public/screenshots/confirm-submit.png)
-
-### Result Page
-![Result Page](public/screenshots/result-page.png)
-
-### Mânge Questions
-![Manage Questions](public/screenshots/manage-questions.png)
-
-### Manage Quiz
-![Manage Quiz](public/screenshots/manage-quiz.png)
